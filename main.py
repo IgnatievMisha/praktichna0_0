@@ -24,3 +24,17 @@ def example_function(x):
     return x
 print(example_function(777))
 #3
+def cache_decorator(func):
+    cache = {}
+    def wrapper(*args, **kwargs):
+        if args in cache:
+            return cache[args]
+        else:
+            result = func(*args)
+            cache[args]=result
+            return result, cache
+    return wrapper
+@cache_decorator
+def mama(x, y):
+    return x*y
+print(mama(3, 10))
